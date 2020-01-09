@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://192.168.1.9/planning-database',{
+mongoose.connect('mongodb://192.168.0.17/planning-database',{
     useCreateIndex: true,
     useNewUrlParser: true,
     useFindAndModify: false,

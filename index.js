@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 var cors = require('cors');
-
+const multer = require('multer');
 function logger(req, res, next){
     console.log('Request received');
 }
@@ -17,7 +17,7 @@ app.use(require('./Routes/index'));
 //Initializing
 require('./config/mongoose');
 
-app.listen(80,'192.168.1.9',() => {
+app.listen(80,'192.168.0.17',() => {
     console.log('port 88')
 });
 

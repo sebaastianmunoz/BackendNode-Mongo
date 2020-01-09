@@ -9,7 +9,7 @@ const Planning = new Schema({
         duration: String
     }],
     archive: [],
-    data: [],
+    data: [{}],
     status: {
         type: String,
     },
@@ -23,9 +23,7 @@ const Planning = new Schema({
     verbs : [],
     dates : {
         type : String
-    },
-    logo : []
-
+    }
 });
 //const Planning = mongoose.model('Planning', PlanningSchema);
 

@@ -55,12 +55,22 @@ const Users = new Schema({
         hour : {
             type: Date,
         },
-        day : {type: String}
+        day : {
+            type: String
+        }
     }],
     tokens: [{
         token: {
             type: String,
             required: false
+        }
+    }],
+    course : [{
+        level : {
+            type: String
+        },
+        letter : {
+            type : String
         }
     }]
 

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require ('./../models/index').User;
 var db = require('./../config/mongoose');
-
+const multer = require('./../config/mongoose/multer');
 router.use(express.json());
 
 async function get(req, res) {
@@ -20,6 +20,27 @@ async function create(req,res) {
     } 
     catch(err){
     }
+}
+
+async function addSchedule(req,res) {
+    console.log(req.body);
+    try {
+        User.findById({_id : req.body._id}, function (err,user){
+            //console.log(user);
+            schedule = {
+                asignature : req.body.schedule.asignature,
+                level : req.body.schedule.level,
+                letter : req.body.schedule.letter,
+                day : req.body.schedule.day,
+            }            
+            user.schedule.push(schedule);
+            user.save();
+            console.log(user);
+        });
+    }
+    catch {
+        console.log('err');
+    }    
 }
 
 async function update(req,res){
@@ -70,7 +91,8 @@ module.exports = {
     get,
     create,
     update,
-    deleted
+    deleted,
+    addSchedule
 };
 
    // let body = JSON.parse(JSON.stringify(req.body));

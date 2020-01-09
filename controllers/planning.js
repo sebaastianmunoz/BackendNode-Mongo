@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Planning = require('./../models/index').Planning;
-
+const User = require('./../models/index').User;
+const dateController = require('./dateController');
 router.use(express.json());
 
 async function get(req, res) {
@@ -12,14 +13,47 @@ async function get(req, res) {
 
 
 async function create(req,res) {
-    console.log('hola');
+    console.log('Planning created');
     try {
-        var newPlanning = new Planning(req.body);
-        newUser.save();
-        res.status(201).send(newUser)
+        var newPlanning = new Planning();
+        console.log(req.body);
+//      console.log(newPlanning);
+
+        newPlanning.save();
+        res.status(201).send(newPlanning)
     } 
     catch(err){
     }
+}
+
+
+function getOnePlanning(req,res) {
+    
+}
+async function getClassDate(req,res){
+    let dates = [];
+    let dayClass = [];
+    let dayUser = [];
+    await dateController.getDates().then(res=>{
+        dates = res;
+    }).catch(err =>{
+        console.log(err);
+    });
+    User.findById({_id : req.params.id}, function(err,usr){
+        Object.keys(usr.schedule).map(function(key1,err){
+            dayUser.push(usr.schedule[key1].day);
+            console.log('1',dayUser[key1]);
+            console.log(dayUser);
+        Object.keys(dates).map(function (key,err) {
+            console.log('date',dates);
+            if(dates[key] == dayUser[key1]){
+                dayClass.push(dates[key]); 
+            }
+        })
+    })
+        console.log('dayClass' ,dayClass);
+    });
+    
 }
 /*
 async function update(req,res){
@@ -66,9 +100,11 @@ function deleted(req,res){
     res.status(201).send('chupa el pico');
 }
 */
+
 module.exports = {
     get,
     create,
   //  update,
    // deleted
+   getClassDate
 };
